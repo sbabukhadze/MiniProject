@@ -3,9 +3,8 @@ head
     title= DataBase
     link(rel="stylesheet", href="/css/main.css")
 body
-    h1= Add/Edit Person
+    h1 Add Person
     hr
-       
 
     form(action="", method="post")
         p
@@ -13,16 +12,10 @@ body
         p
             input(type="text", name="last_name", placeholder="Last Name", required)
         p
-            input(type="number", name="personal_no", placeholder="Personal N")   
+            input(type="text", name="personal_no", placeholder="Personal N", required)   
         p
-            input(type="text", name="mid_name", placeholder="Mid Name", required) 
+            input(type="text", name="mid_name", placeholder="Mid Name") 
         p   
-            input(type="number", name="birth_date", placeholder="Date of Birth")
+            input(type="date", name="birth_date", placeholder="Date of Birth")
         p
             button(type="submit")   Save Person
-        p
-            button(type="submit")   Edit Person
-
-
-   
-  

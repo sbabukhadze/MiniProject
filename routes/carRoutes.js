@@ -1,55 +1,39 @@
 
 const Router = require('express').Router;
-const Car = require('../database/car');
+const PersonDB = require('../database/person');
+const CarDB = require('../database/car');
 // const person = require('./PersonRoutes');
 
 const router = Router();
+let allCars= CarDB.list;
 
 
-let carDB = [
-    { car_maker: 'BMW', model: 'M5', plate_number: 'LI555KE', vin: '2654546', color: 'Red', owner_id: 1 },
-    { car_maker: 'Opel', model: 'Corsa', plate_number: 'AA222AA', vin: '445465456', color: 'Blue', owner_id: 2 },
-    { car_maker: 'Mitsubishi', model: 'Pajero', plate_number: 'XX777AA', vin: '2131213', color: 'Bronze', owner_id: 3 }
 
-]
-
-
-router.get("/new", (req, res) => {
-    res.render("car/addC", { title: "Add a Car ", added: false, carDB });
+router.get("/", (req, res) => {
+    res.render("car/carList", { title: "Avaible Cars", added: false, allCars});
 
 })
 
-router.post("/new", (req, res) => {
-    const car = new Car(
-        req.body.car_maker,
-        req.body.model,
-        req.body.plate_number,
-        req.body.VIN,
-        req.body.color,
-        req.body.owner_id,
-    );
-    carDB.push(car);
-    res.render("car/addC", { title: "title", added: true, carDB });
-
-})
-
-
-router.patch('/new/edit', (req, res) => {
-
+router.get("/add", (req, res) => {
+    res.render("car/addCar", { title: "Add a Car", added: false});
 });
 
-router.put('/new/edit', (req, res) => {
 
-    car.update(
-        req.body.car_maker,
-        req.body.model,
-        req.body.plate_number,
-        req.body.VIN,
-        req.body.color,
-        req.body.owner_id,
-    );
-    
-});
+router.post("/add", (req, res) => {
+    CarDB.add(req.body);
+    res.redirect('/cars');
+  });
+
+//   router.get("/edit/:id", (req, res) => {
+//     var person = PersonsDB.getPersonById(req.params.id);
+//     res.render("person/editPerson", { title: "Edit a Person", added: false, person});
+// });
+
+// router.post("/edit/:id", (req, res) => {
+//     PersonsDB.update(req.body);
+//     var person = PersonsDB.getPersonById(req.params.id);
+//     res.render("person/editPerson", { title: "Edit a Person", added: false, person});
+// });
 
 
 module.exports.router = router;
